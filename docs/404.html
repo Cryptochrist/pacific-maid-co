@@ -8,13 +8,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
-  <!-- BASE_PATH: GitHub serves 404 from the domain root for any unmatched path,
-       so paths here must be absolute-from-root. On a project page the site lives
-       under /pacific-maid-co/. When you move to a custom domain at the root,
-       change BASE to "/" in the link/script paths and the data-base below. -->
-  <link rel="stylesheet" href="/pacific-maid-co/assets/css/styles.css" />
+  <!-- 404 is served from the domain root, so paths are absolute-from-root.
+       Cloudflare Pages serves this site at the root of its domain
+       (e.g. pacific-maid-co.pages.dev/ or a custom domain), so "/..." is correct. -->
+  <link rel="stylesheet" href="/assets/css/styles.css" />
 </head>
-<body data-base="/pacific-maid-co/">
+<body data-base="/">
   <div data-include="header"></div>
   <section style="padding:96px 0; text-align:center">
     <div class="container">
@@ -22,14 +21,14 @@
       <h1>This page took a cleaning day off</h1>
       <p class="lead muted">We couldn’t find that page. Let’s get you back to a spotless start.</p>
       <div style="margin-top:24px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap">
-        <a class="btn btn-primary btn-lg" href="/pacific-maid-co/index.html">Back home</a>
-        <a class="btn btn-ghost btn-lg" href="/pacific-maid-co/book.html">Book a cleaning</a>
+        <a class="btn btn-primary btn-lg" href="/index.html">Back home</a>
+        <a class="btn btn-ghost btn-lg" href="/book.html">Book a cleaning</a>
       </div>
     </div>
   </section>
   <div data-include="footer"></div>
-  <script src="/pacific-maid-co/assets/js/config.js"></script>
-  <script src="/pacific-maid-co/assets/js/partials.js"></script>
-  <script src="/pacific-maid-co/assets/js/main.js"></script>
+  <script src="/assets/js/config.js"></script>
+  <script src="/assets/js/partials.js"></script>
+  <script src="/assets/js/main.js"></script>
 </body>
 </html>
