@@ -1,0 +1,20 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Node (the generator uses Node but has no deps; ignore if any are added later)
+node_modules/
+npm-debug.log*
+
+# Local screenshots / scratch
+*.local
+/tmp/
+*.png
+
+# Claude Code local settings (keep private to this machine)
+.claude/settings.local.json
+
+# Private business strategy / research — keep local, never publish
+NOTES.md
+RESEARCH.md

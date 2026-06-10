@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book a House Cleaning in San Diego | Pacific Maid Co.</title>
+  <meta name="description" content="Book your San Diego house cleaning online in 60 seconds. See your flat-rate price, pick a real-time slot, and confirm — no callbacks. Secure payment via Stripe." />
+  <link rel="canonical" href="https://pacificmaidco.com/book.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <style>
+    .book-grid { display:grid; grid-template-columns: 1fr 1fr; gap:36px; align-items:start; }
+    .form-card { background:#fff; border:1px solid var(--c-line); border-radius:var(--r-lg); box-shadow:var(--shadow-sm); padding:28px; }
+    .form-card label { display:block; font-weight:600; font-size:.9rem; color:var(--c-ink); margin:14px 0 6px; }
+    .form-card input, .form-card textarea, .form-card select { width:100%; padding:12px 14px; border:1.5px solid var(--c-line); border-radius:var(--r-md); font-size:1rem; font-family:inherit; }
+    .form-card .row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .consent { display:flex; gap:10px; align-items:flex-start; margin-top:16px; font-size:.9rem; color:var(--c-body); }
+    .consent input { width:auto; margin-top:4px; }
+    .policy-box { background:var(--c-bg-soft); border:1px solid var(--c-line); border-radius:var(--r-md); padding:18px 20px; margin-top:18px; font-size:.9rem; }
+    .policy-box h4 { font-size:.9rem; margin-bottom:6px; }
+    .notice { background:#eef7ff; border:1px solid #bcdcf5; border-radius:var(--r-md); padding:14px 18px; font-size:.88rem; color:#0a4a78; margin-top:16px; }
+    @media (max-width:860px){ .book-grid{ grid-template-columns:1fr; } .form-card .row{ grid-template-columns:1fr; } }
+  </style>
+</head>
+<body data-active="book">
+  <div data-include="header"></div>
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="breadcrumb"><a href="index.html">Home</a> / Book</p>
+      <h1>Book your cleaning in 60 seconds</h1>
+      <p class="lead">See your price, pick a time, and confirm. No “we’ll call you back.”</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container book-grid">
+      <!-- Left: live estimator -->
+      <div>
+        <div id="estimator" class="estimator"><h3>💧 Instant price estimate</h3><p class="est-sub">Loading…</p></div>
+        <div class="policy-box">
+          <h4>Good to know</h4>
+          <p data-cfg="policies.cancellation" style="margin-bottom:8px"></p>
+          <p data-cfg="policies.noRefund" style="margin-bottom:0"></p>
+        </div>
+      </div>
+
+      <!-- Right: booking details form (prototype) -->
+      <div class="form-card">
+        <h3 style="margin-top:0">Your details</h3>
+        <form id="booking-form" onsubmit="return false">
+          <div class="row">
+            <div><label for="fname">First name</label><input id="fname" name="fname" required /></div>
+            <div><label for="lname">Last name</label><input id="lname" name="lname" required /></div>
+          </div>
+          <div class="row">
+            <div><label for="email">Email</label><input id="email" type="email" name="email" required /></div>
+            <div><label for="phone">Phone</label><input id="phone" type="tel" name="phone" required /></div>
+          </div>
+          <label for="address">Service address</label>
+          <input id="address" name="address" placeholder="Street, San Diego, CA" required />
+          <div class="row">
+            <div><label for="date">Preferred date</label><input id="date" type="date" name="date" required /></div>
+            <div><label for="time">Preferred time</label>
+              <select id="time" name="time">
+                <option>Morning (8–11am)</option><option>Midday (11am–2pm)</option><option>Afternoon (2–5pm)</option>
+              </select>
+            </div>
+          </div>
+          <label for="notes">Anything we should know? (gate codes, pets, focus areas)</label>
+          <textarea id="notes" name="notes" rows="3"></textarea>
+
+          <!-- Safety / ToS consent (from voice notes) -->
+          <label class="consent">
+            <input type="checkbox" id="safety" required />
+            <span>I confirm there are no unsecured animals or known hazards in the home during the visit, and I agree to the
+              <a href="terms.html">Terms of Service</a> and <a href="policies.html">cancellation policy</a>.</span>
+          </label>
+
+          <button class="btn btn-primary btn-lg btn-block" style="margin-top:20px" id="submit-btn">Request my booking →</button>
+        </form>
+
+        <div class="notice">
+          <strong>Prototype:</strong> this beta captures your request and shows the flow. In production, this connects to a real-time booking calendar and secure <strong>Stripe</strong> checkout — see <a href="terms.html">how it works</a>.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div data-include="footer"></div>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/partials.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/estimator.js"></script>
+  <script>
+    // Prototype submit handler — shows a confirmation. Wire to booking API + Stripe in production.
+    document.getElementById('submit-btn').addEventListener('click', function () {
+      var f = document.getElementById('booking-form');
+      if (!f.reportValidity()) return;
+      f.innerHTML = '<div class="est-result" style="background:#eafaf0;border:1px solid #b6e6c9">'
+        + '<div class="est-price" style="color:#1f9d5a">Thanks! ✓</div>'
+        + '<p style="margin:10px 0 0">Your request is in. In the live product you’d now pick a confirmed slot and pay securely. '
+        + 'We’ll be in touch at the email you provided.</p></div>';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transparent House Cleaning Prices in San Diego | Pacific Maid Co.</title>
+  <meta name="description" content="See real, flat-rate house cleaning prices by home size — no hidden fees, no callbacks. Standard, deep, move-out, and Airbnb pricing for San Diego, plus recurring discounts up to 20%." />
+  <link rel="canonical" href="https://pacificmaidco.com/pricing.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <style>
+    .ratetable { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--c-line); border-radius:var(--r-lg); overflow:hidden; box-shadow:var(--shadow-sm); }
+    .ratetable th, .ratetable td { padding:14px 18px; text-align:left; border-bottom:1px solid var(--c-line); }
+    .ratetable thead th { background:var(--c-bg-tint); color:var(--c-ink); font-family:var(--font-display); font-size:.95rem; }
+    .ratetable td.price { font-weight:700; color:var(--c-primary-dark); font-family:var(--font-display); }
+    .ratetable tr:last-child td { border-bottom:0; }
+    @media (max-width:680px){ .ratetable th, .ratetable td { padding:11px 12px; font-size:.9rem; } }
+  </style>
+</head>
+<body data-active="pricing">
+  <div data-include="header"></div>
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="breadcrumb"><a href="index.html">Home</a> / Pricing</p>
+      <h1>Honest, flat-rate pricing</h1>
+      <p class="lead">The price you see is the price you pay. No “request a quote,” no surprise fees, no memberships you didn’t ask for.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-head center">
+        <h2>Standard clean — flat rate by home size</h2>
+        <p class="muted">Signature tier (we bring all supplies). Deep cleans and move-outs are priced higher; recurring service saves up to 20%.</p>
+      </div>
+      <div id="rate-table"></div>
+      <p class="center muted" style="margin-top:14px;font-size:.9rem">Prototype prices for the beta — final pricing confirmed at checkout and after our local market test. 2-hour minimum applies.</p>
+      <div class="center" style="margin-top:24px"><a class="btn btn-primary btn-lg" href="book.html">Get my exact price →</a></div>
+    </div>
+  </section>
+
+  <section class="section-soft">
+    <div class="container">
+      <div class="section-head center">
+        <p class="eyebrow">How tiers work</p>
+        <h2>Pick the level that fits</h2>
+      </div>
+      <div id="tier-cards" class="grid grid-3"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-head center"><h2>Recurring service saves you more</h2></div>
+      <div id="freq-cards" class="grid grid-4"></div>
+    </div>
+  </section>
+
+  <div data-include="footer"></div>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/partials.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    // Render the rate table + tier/frequency cards from PMC.pricing so they
+    // always match the estimator. One source of truth.
+    (function () {
+      var P = window.PMC.pricing;
+      function money(n){ return P.currency + Math.round(n).toLocaleString(); }
+      var std = P.serviceTypes[0], deep = P.serviceTypes[1], move = P.serviceTypes[2];
+
+      // Rate table
+      var rows = P.homeSizes.map(function (s) {
+        return '<tr><td>' + s.label + '</td>'
+          + '<td class="price">' + money(s.base * std.mult) + '</td>'
+          + '<td class="price">' + money(s.base * deep.mult) + '</td>'
+          + '<td class="price">' + money(s.base * move.mult) + '</td></tr>';
+      }).join('');
+      document.getElementById('rate-table').innerHTML =
+        '<table class="ratetable"><thead><tr><th>Home size</th><th>Standard</th><th>Deep clean</th><th>Move in/out</th></tr></thead><tbody>'
+        + rows + '</tbody></table>';
+
+      // Tier cards
+      document.getElementById('tier-cards').innerHTML = P.tiers.map(function (t) {
+        var adj = t.adj === 0 ? 'Included' : (t.adj < 0 ? money(t.adj).replace('$-','–$') + ' off' : '+' + money(t.adj));
+        return '<div class="card tier-card ' + (t.recommended ? 'featured' : '') + '">'
+          + (t.recommended ? '<span class="tier-badge">Most popular</span>' : '')
+          + '<h3>' + t.label + '</h3>'
+          + '<div class="tier-price">' + adj + '</div>'
+          + '<p class="muted">' + t.desc + '</p>'
+          + '<a class="btn btn-ghost btn-block" href="book.html">Choose ' + t.label + '</a></div>';
+      }).join('');
+
+      // Frequency cards
+      document.getElementById('freq-cards').innerHTML = P.frequencies.map(function (f) {
+        var pct = Math.round(f.discount * 100);
+        return '<div class="card center"><h3>' + f.label + '</h3>'
+          + '<div class="price-tag" style="font-size:1.6rem">' + (pct ? 'Save ' + pct + '%' : 'Full price') + '</div>'
+          + '<p class="muted" style="font-size:.9rem;margin-top:6px">' + (pct ? 'On every recurring visit' : 'One-time clean') + '</p></div>';
+      }).join('');
+    })();
+  </script>
+</body>
+</html>

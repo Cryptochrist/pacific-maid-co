@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /terms.html
+Disallow: /policies.html
+Disallow: /privacy.html
+
+Sitemap: https://pacificmaidco.com/sitemap.xml
